@@ -32,7 +32,7 @@ public class AuthService {
 
         String email = dto.getEmail().trim().toLowerCase();
 
-        if (userRepository.findByEmail(email) != null) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("User already exists");
         }
 
@@ -40,7 +40,8 @@ public class AuthService {
         user.setName(dto.getName());
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setRole(dto.getRole());
+
+        user.setRole(dto.getRole() != null ? dto.getRole() : "EMPLOYEE");
 
         return userRepository.save(user);
     }
@@ -53,11 +54,8 @@ public class AuthService {
 
         String email = dto.getEmail().trim().toLowerCase();
 
-        User user = userRepository.findByEmail(email);
-
-        if (user == null) {
-            throw new RuntimeException("Invalid credentials");
-        }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
