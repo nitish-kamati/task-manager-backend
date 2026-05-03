@@ -27,9 +27,4 @@ public class AuthController {
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) {
         return ResponseEntity.ok(authService.login(dto));
     }
-
-    @GetMapping("/test-secure")
-    public ResponseEntity<String> secure() {
-        return ResponseEntity.ok("This is protected 🔐");
-    }
 }

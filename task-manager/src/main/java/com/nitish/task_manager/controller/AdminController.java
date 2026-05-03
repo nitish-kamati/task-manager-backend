@@ -40,7 +40,8 @@ public class AdminController {
         Task task = new Task();
         task.setTitle(dto.getTitle());
         task.setDescription(dto.getDescription());
-
+        task.setAssignedTo(dto.getAssignedTo());
+        task.setAssignedManager(dto.getAssignedManager());
 
         if (!hasManager && hasEmployee) {
             task.setAssignedManager(dto.getAssignedTo());
@@ -66,7 +67,7 @@ public class AdminController {
             dto.setId(task.getId());
             dto.setTitle(task.getTitle());
             dto.setDescription(task.getDescription());
-            dto.setAssignedTo(task.getAssignedTo());
+            dto.setAssignedTo(task.getAssignedTo() != null ? task.getAssignedTo() : task.getAssignedManager());
             dto.setStatus(task.getStatus());
             return dto;
         }).toList();

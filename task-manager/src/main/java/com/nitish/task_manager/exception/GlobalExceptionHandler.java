@@ -12,10 +12,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<Map<String, Object>> handleAll(Throwable ex) {
 
-        System.err.println("=== EXCEPTION OCCURRED ===");
-        ex.printStackTrace();
-        System.err.println("=== END EXCEPTION ===");
-        
         if (ex.getMessage() != null && ex.getMessage().toLowerCase().contains("objectid")) {
             return buildResponse("Invalid ID format", HttpStatus.BAD_REQUEST);
         }

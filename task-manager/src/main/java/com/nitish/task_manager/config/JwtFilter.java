@@ -23,11 +23,10 @@ public class JwtFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
-    // ✅ THIS IS THE MAIN FIX
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return path.startsWith("/auth") || path.equals("/test");
+        return path.startsWith("/auth") || path.equals("/test") || path.equals("/h2-console/**");
     }
 
     @Override

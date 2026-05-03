@@ -42,15 +42,14 @@ public class JwtUtil {
             getClaims(token);
             return true;
         } catch (ExpiredJwtException e) {
-            System.out.println("Token expired");
+            return false;
         } catch (MalformedJwtException e) {
-            System.out.println("Invalid token format");
+            return false;
         } catch (SignatureException e) {
-            System.out.println("Invalid signature");
+            return false;
         } catch (Exception e) {
-            System.out.println("Token validation failed");
+            return false;
         }
-        return false;
     }
 
     private Claims getClaims(String token) {
