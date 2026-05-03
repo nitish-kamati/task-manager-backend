@@ -20,10 +20,10 @@ public class ManagerController {
     public ManagerController(TaskService taskService) {
         this.taskService = taskService;
     }
-//    @GetMapping("/test")
-//    public String test() {
-//        return "Manager OK";
-//    }
+    @GetMapping("/test")
+    public String test() {
+        return "Manager OK";
+    }
 
     @PostMapping("/task/create")
     public ResponseEntity<String> createTask(@RequestBody TaskCreateDTO dto,

@@ -28,8 +28,8 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(dto));
     }
 
-//    @GetMapping("/test-secure")
-//    public ResponseEntity<String> secure() {
-//        return ResponseEntity.ok("This is protected 🔐");
-//    }
+    @GetMapping("/test-secure")
+    public ResponseEntity<String> secure() {
+        return ResponseEntity.ok("This is protected 🔐");
+    }
 }

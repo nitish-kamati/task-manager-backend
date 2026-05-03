@@ -20,12 +20,12 @@ public class AdminController {
         this.taskService = taskService;
     }
 
-//    @GetMapping("/test")
-//    public ResponseEntity<ApiResponse<String>> test() {
-//        return ResponseEntity.ok(
-//                new ApiResponse<>(true, "Admin API working", null)
-//        );
-//    }
+    @GetMapping("/test")
+    public ResponseEntity<ApiResponse<String>> test() {
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "Admin API working", null)
+        );
+    }
 
     @PostMapping("/task/create")
     public ResponseEntity<ApiResponse<String>> createTask(@RequestBody TaskCreateDTO dto) {
