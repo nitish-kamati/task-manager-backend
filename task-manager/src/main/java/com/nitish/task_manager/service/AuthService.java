@@ -24,51 +24,53 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    // 🔥 REGISTER LOGIC
     public User register(RegisterRequestDTO dto) {
 
-        if (userRepository.findByEmail(dto.getEmail()) != null) {
+        if (dto.getEmail() == null || dto.getPassword() == null) {
+            throw new RuntimeException("Email or Password missing");
+        }
+
+        String email = dto.getEmail().trim().toLowerCase();
+
+        if (userRepository.findByEmail(email) != null) {
             throw new RuntimeException("User already exists");
         }
 
         User user = new User();
         user.setName(dto.getName());
-        user.setEmail(dto.getEmail().trim().toLowerCase());
+        user.setEmail(email);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(dto.getRole());
 
         return userRepository.save(user);
     }
 
-    // 🔥 LOGIN LOGIC
     public LoginResponseDTO login(LoginRequestDTO dto) {
 
-        System.out.println("INPUT EMAIL: " + dto.getEmail());
-        User existingUser = userRepository.findByEmail(dto.getEmail().trim().toLowerCase());
+        if (dto.getEmail() == null || dto.getPassword() == null) {
+            throw new RuntimeException("Email or password missing");
+        }
 
+        String email = dto.getEmail().trim().toLowerCase();
 
-        System.out.println("DB USER: " + existingUser);
-        if (existingUser == null) {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
             throw new RuntimeException("Invalid credentials");
         }
 
-        boolean isMatch = passwordEncoder.matches(
-                dto.getPassword(),
-                existingUser.getPassword()
-        );
-
-        if (!isMatch) {
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
 
         String token = jwtUtil.generateToken(
-                existingUser.getEmail(),
-                existingUser.getRole()
+                user.getEmail(),
+                user.getRole()
         );
 
         return new LoginResponseDTO(
                 token,
-                existingUser.getRole()
+                user.getRole()
         );
     }
 }
