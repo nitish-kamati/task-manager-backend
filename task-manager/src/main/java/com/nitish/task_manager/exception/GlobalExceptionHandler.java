@@ -12,11 +12,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<Map<String, Object>> handleAll(Throwable ex) {
 
+        System.err.println("=== EXCEPTION OCCURRED ===");
         ex.printStackTrace();
+        System.err.println("=== END EXCEPTION ===");
+        
         if (ex.getMessage() != null && ex.getMessage().toLowerCase().contains("objectid")) {
             return buildResponse("Invalid ID format", HttpStatus.BAD_REQUEST);
         }
-        return buildResponse("Something went wrong ", HttpStatus.INTERNAL_SERVER_ERROR);
+        return buildResponse("Something went wrong: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
