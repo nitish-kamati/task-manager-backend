@@ -20,13 +20,18 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
     public String generateToken(String email, String role) {
-        return Jwts.builder()
-                .setSubject(email)
-                .claim("role", role)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(getSignKey(), SignatureAlgorithm.HS256)
-                .compact();
+        try {
+            return Jwts.builder()
+                    .setSubject(email)
+                    .claim("role", role)
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                    .signWith(getSignKey(), SignatureAlgorithm.HS256)
+                    .compact();
+        } catch (Exception e) {
+            System.err.println("JWT Token Generation Error: " + e.getMessage());
+            throw new RuntimeException("Failed to generate JWT token", e);
+        }
     }
 
     public String extractEmail(String token) {
