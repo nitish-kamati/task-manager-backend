@@ -48,7 +48,7 @@ A secure and scalable **Spring Boot backend** for a role-based task management s
 
 ### ✅ Create Task API
 
-![Create Task](docs/screenshots/postman/create-task.png)
+![Create Task](docs/screenshots/postman/task_creation.png)
 
 ### ❌ Delete Task API
 
@@ -62,7 +62,7 @@ A secure and scalable **Spring Boot backend** for a role-based task management s
 
 Stores user details including roles (Admin, Manager, Employee) and authentication data.
 
-![Users](docs/screenshots/mongodb/users.png)
+![Users](docs/screenshots/mongodb/users_DB.png)
 
 ---
 
@@ -70,7 +70,7 @@ Stores user details including roles (Admin, Manager, Employee) and authenticatio
 
 Represents extended user data and role relationships.
 
-![More Users](docs/screenshots/mongodb/more-users.png)
+![More Users](docs/screenshots/mongodb/moreusers.png)
 
 ---
 
@@ -78,7 +78,7 @@ Represents extended user data and role relationships.
 
 Stores all tasks with fields like title, description, assigned user, manager, and status.
 
-![Tasks](docs/screenshots/mongodb/tasks.png)
+![Tasks](docs/screenshots/mongodb/mongoDB_task_assigned.png)
 
 ---
 
@@ -86,7 +86,7 @@ Stores all tasks with fields like title, description, assigned user, manager, an
 
 Provides an overview of task distribution and user activity.
 
-![Dashboard](docs/screenshots/mongodb/dashboard.png)
+![Dashboard](docs/screenshots/mongodb/basic_dashboard_DB.png)
 
 ---
 
